@@ -20,6 +20,20 @@ class Student(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+    def get_absolute_url(self):
+        return reverse('student-detail', args=[str(self.id)])
+
+class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    
+    # User reputation score.
+
+    def __str__(self):
+        return self.user.username
+    
+    def get_absolute_url(self):
+        return reverse('teacher-detail', args=[str(self.user.id)])
 
 class Course(models.Model):
     user = models.ForeignKey(

@@ -212,9 +212,9 @@
               </li>
               <li><a href="#home">Teachers</a>
                 <ul class="dropdown">
-                  <li><a href="page-teachers-style1.html">Teachers style 1</a></li>
-                  <li><a href="page-teachers-style2.html">Teachers style 2</a></li>
-                  <li><a href="page-teachers-details.html">Teachers Details</a></li>
+                  {% for teacher in teachers %}
+                  <li><a href="{{ teacher.get_absolute_url }}">{{ teacher }}</a></li>
+                  {% endfor %}
                 </ul>
               </li>
               <li><a href="#">Blog</a>
@@ -266,6 +266,19 @@
                   </li>
                 </ul>
               </li>
+              {% if user.is_authenticated %}
+              <li><a href="#">Welcome {{ user }}</a></li>
+              <li><a href="/accounts/logout">Logout</a></li>
+              {% else %}
+              <li><a href="#">Register</a>
+                <ul class="dropdown">
+                  <li><a href="{% url 'teacher_signup' %}">As a teacher</a></li>
+                  <li><a href="{% url 'student_signup' %}">As a Student</a></li>
+                </ul>
+              </li>
+              
+              <li><a href="/accounts/login">Login</a></li>
+              {% endif %}
             </ul>
           </nav>
         </div>
